@@ -1,6 +1,6 @@
 // متغیرهای سراسری برای ذخیره داده‌ها
 let hospitalData = [];
-const API_URL = 'http://localhost:4000/api/v1';
+const API_URL = 'http://10.3.10.12:4000/api/v1';
 
 function refreshData(data) {
     hospitalData = [...data];
