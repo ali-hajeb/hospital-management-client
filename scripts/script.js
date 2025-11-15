@@ -311,7 +311,7 @@ function updateUI() {
     const treatmentKeys = ['approvedBeds', 'activeBeds', 'occupancy', 'outpatients', 
         'inpatients', 'emergency', 'specialistVisits', 'surgeries', 'patientGrowth'];
     treatmentKeys.forEach(key => {
-        const el = document.getElementById(key.replace(/([A-Z])/g, '-$1').toLowerCase());
+        const el = document.getElementById(key);
         if (el && hospitalData.treatment[key] !== undefined) {
             el.value = hospitalData.treatment[key];
         }
@@ -338,21 +338,31 @@ function updateUI() {
     });
 
     // درآمدها
-    const revenueKeys = ['treatment', 'pharmacy', 'rental', 'waste', 'other', 'insuranceFee', 'revenueGrowth'];
+    const revenueKeys = ['treatment', 'pharmacy', 'rental', 'waste', 'other', 'insuranceFee'];
     revenueKeys.forEach(key => {
         const el = document.getElementById(key + '-revenue' || key);
         if (el && hospitalData.revenue[key] !== undefined) {
             el.value = hospitalData.revenue[key];
         }
     });
+        const el = document.getElementById('revenueGrowth-revenue');
+        if (el && hospitalData.revenue['growthRate'] !== undefined) {
+            el.value = hospitalData.revenue['growthRate'];
+        }
 
     // سود/زیان
-    ['depreciation', 'taxes', 'non-operational'].forEach(key => {
+    ['depreciation', 'taxes'].forEach(key => {
         const el = document.getElementById(key);
         if (el && hospitalData.profit[key] !== undefined) {
             el.value = hospitalData.profit[key];
         }
     });
+        const el2 = document.getElementById('non-operational');
+        console.log('prof', hospitalData.profit['nonOperational'], el2, el2.value);
+        if (el2 && hospitalData.profit['nonOperational'] !== undefined) {
+            el2.value = hospitalData.profit['nonOperational'];
+        console.log('prof', hospitalData.profit['nonOperational'], el2.value);
+        }
 
     // تحلیل
     const analyticsKeys = ['targetProfit', 'targetGrowth', 'debtRatio', 'forecastPeriod'];
@@ -373,15 +383,15 @@ function updateUI() {
 // ========== محاسبات اصلی (رفع خطا) ==========
 function calcTreatment() {
     try {
-        const approved = parseFloat(document.getElementById('approved-beds').value) || 0;
-        const active = parseFloat(document.getElementById('active-beds').value) || 0;
+        const approved = parseFloat(document.getElementById('approvedBeds').value) || 0;
+        const active = parseFloat(document.getElementById('activeBeds').value) || 0;
         const rate = parseFloat(document.getElementById('occupancy').value) || 0;
-        console.log('heyyyyy', rate, document.getElementById('occupancy'));
         const out = parseFloat(document.getElementById('outpatients').value) || 0;
         const inpt = parseFloat(document.getElementById('inpatients').value) || 0;
         const emerg = parseFloat(document.getElementById('emergency').value) || 0;
-        const spec = parseFloat(document.getElementById('specialist-visits').value) || 0;
+        const spec = parseFloat(document.getElementById('specialistVisits').value) || 0;
         const surg = parseFloat(document.getElementById('surgeries').value) || 0;
+        const patientGrowth = parseFloat(document.getElementById('patientGrowth').value) || 0;
 
         // محاسبات
         const utilization = approved > 0 ? Math.min((active / approved * 100), 100) : 0;
@@ -410,7 +420,7 @@ function calcTreatment() {
             approvedBeds: approved, activeBeds: active, occupancy: rate,
             outpatients: out, inpatients: inpt, emergency: emerg,
             specialistVisits: spec, surgeries: surg,
-            utilization: utilization.toFixed(1), totalPatients,
+            utilization: utilization.toFixed(1), totalPatients, patientGrowth,
             avgStay, bedTurnover, efficiencyScore, revenuePerBed: revenuePerBed.toFixed(1)
         };
 
@@ -763,9 +773,9 @@ function showSection(sectionId) {
                 analytics: advancedAnalysis
             };
 
-            // if (calculations[sectionId]) {
-            //     calculations[sectionId]();
-            // }
+            if (calculations[sectionId]) {
+                calculations[sectionId]();
+            }
 
             showLoading(false);
             // saveData();

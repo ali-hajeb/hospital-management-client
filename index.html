@@ -137,12 +137,12 @@
                 <div class="form-grid">
                     <div class="form-row">
                         <label class="form-label">🛏️ تخت‌های مصوب:</label>
-                        <input type="number" id="approved-beds" class="form-input" value="180" min="0" max="1000" oninput="calcTreatment()">
+                        <input type="number" id="approvedBeds" class="form-input" value="180" min="0" max="1000" oninput="calcTreatment()">
                     </div>
 
                     <div class="form-row">
                         <label class="form-label">🛏️ تخت‌های فعال:</label>
-                        <input type="number" id="active-beds" class="form-input" value="150" min="0" max="1000" oninput="calcTreatment()">
+                        <input type="number" id="activeBeds" class="form-input" value="150" min="0" max="1000" oninput="calcTreatment()">
                     </div>
 
                     <div class="form-row">
@@ -168,7 +168,7 @@
 
                     <div class="form-row">
                         <label class="form-label">🩺 ویزیت‌های تخصصی:</label>
-                        <input type="number" id="specialist-visits" class="form-input" value="950" min="0" max="5000" oninput="calcTreatment()">
+                        <input type="number" id="specialistVisits" class="form-input" value="950" min="0" max="5000" oninput="calcTreatment()">
                     </div>
 
                     <div class="form-row">
@@ -178,7 +178,7 @@
 
                     <div class="form-row full-width">
                         <label class="form-label">📈 نرخ رشد بیماران (سالانه):</label>
-                        <input type="number" id="patient-growth" class="form-input" value="7.2" min="0" max="50" step="0.1">
+                        <input type="number" id="patientGrowth" class="form-input" value="7.2" min="0" max="50" step="0.1" oninput="calcTreatment()">
                         <span style="color: #00ff41; font-size: 13px; font-weight: 700;">%</span>
                     </div>
                 </div>
@@ -270,7 +270,7 @@
 
                     <div class="form-row full-width">
                         <label class="form-label">📈 نرخ تورم هزینه‌ها (سالانه):</label>
-                        <input type="number" id="inflationRate-cost" class="form-input" value="28.5" min="0" max="100" step="0.1">
+                        <input type="number" id="inflationRate-cost" class="form-input" value="28.5" min="0" max="100" step="0.1" oninput="calcOverhead()">
                         <span style="color: #00ff41; font-size: 13px; font-weight: 700;">%</span>
                     </div>
                 </div>
@@ -443,7 +443,7 @@
 
                     <div class="form-row full-width">
                         <label class="form-label">📈 نرخ رشد درآمد (سالانه):</label>
-                        <input type="number" id="revenueGrowth-revenue" class="form-input" value="8.5" min="0" max="50" step="0.1">
+                        <input type="number" id="revenueGrowth-revenue" class="form-input" value="8.5" min="0" max="50" step="0.1" oninput="calcRevenue()">
                         <span style="color: #00ff41; font-size: 13px; font-weight: 700;">%</span>
                     </div>
                 </div>
